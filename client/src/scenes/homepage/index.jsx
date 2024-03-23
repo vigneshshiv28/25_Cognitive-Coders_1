@@ -46,7 +46,7 @@ const HomePage = () => {
                     display={isNonMobileScreens ? "flex" : "block"}
                     gap="1rem"
                     justifyContent="start"
-                    marginTop="3rem"
+                    marginTop="4rem"
                     
                 >
                     <Box

@@ -20,11 +20,11 @@ const IntroWidget = () => {
 
     return (
         <WidgetWrapper >
-            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} margin="3rem" marginRight={isNonMobileScreens ? "3rem" : undefined} color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
+            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} margin="3rem"  color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
                 CHECK THE
             </Typography>
 
-            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} marginRight={isNonMobileScreens ? "2rem" : undefined} color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
+            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} marginRight={isNonMobileScreens? "2rem": undefined} color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
                 AUTHENTICITY OF
             </Typography>
 

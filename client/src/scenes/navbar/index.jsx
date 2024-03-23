@@ -79,7 +79,7 @@ const Navbar = ({ isHomePage = true }) => {
                                 padding: "1rem",
                                 borderRadius: "1rem",
                                 '&:hover': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', 
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', // Background color on hover
                                     borderColor: "#2460C8", // Border color on hover
                                     color: theme.palette.background.default, // Text color on hover
                                 },
