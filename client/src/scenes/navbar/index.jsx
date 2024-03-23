@@ -2,22 +2,14 @@ import { useState } from "react";
 import {
     Box,
     IconButton,
-    InputBase,
     Typography,
-    Select,
-    MenuItem,
-    FormControl,
     useTheme,
     useMediaQuery,
     Button
 } from "@mui/material";
 import {
-    Search,
-    Message,
     DarkMode,
     LightMode,
-    Notifications,
-    Help,
     Menu,
     Close,
 } from "@mui/icons-material";
@@ -25,10 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../state/index";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
-import { light } from "@mui/material/styles/createPalette";
-// import { light } from "@mui/material/styles/createPalette";
 
-const Navbar = () => {
+const Navbar = ({ isHomePage = true }) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,31 +26,33 @@ const Navbar = () => {
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1200px)");
 
+    const handleButtonClick = () => {
+        navigate('/home');
+    };
+
     const theme = useTheme();
-    const neutralLight = theme.palette.neutral.light;
     const dark = theme.palette.neutral.dark;
     const background = theme.palette.background.default;
     // const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
 
-    const fullName = `${user.firstName} ${user.lastName}`;
-
     return (
         <FlexBetween padding="1rem 6%" backgroundColor={alt}>
             <FlexBetween gap="1.75rem">
+                <img src="../../assets/logo.jpg" alt="Logo" style={{ width: 60, height: 60, marginRight: 8, borderRadius: "50%" }} />
                 <Typography
                     fontWeight="bold"
                     fontSize="clamp(1rem, 2rem, 2.25rem)"
-                    color="primary"
-                    onClick={() => navigate("/home")}
+                    color="blueviolet"
+                    onClick={() => navigate("/")}
                     sx={{
                         "&:hover": {
-                            color: dark,
                             cursor: "pointer",
                         },
                     }}
                 >
-                    Checkm'AI'ate
+                    <span style={{ color: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', fontWeight: 800 }}>checkm</span>
+                    <span style={{ color: theme.palette.mode === 'dark' ? 'gray' : 'blue', fontWeight: 800 }}>AI</span><span style={{ color: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', fontWeight: 800 }}>te</span>
                 </Typography>
             </FlexBetween>
 
@@ -69,26 +61,33 @@ const Navbar = () => {
                 <FlexBetween gap="2rem">
                     <IconButton onClick={() => dispatch(setMode())}>
                         {theme.palette.mode === "dark" ? (
-                            <DarkMode sx={{ fontSize: "25px" }} />
+                            <DarkMode sx={{ fontSize: "32px" }} />
                         ) : (
-                            <LightMode sx={{ color: dark, fontSize: "25px" }} />
+                            <LightMode sx={{ color: dark, fontSize: "32px" }} />
                         )}
                     </IconButton>
 
-                    <Button
-                        sx={{
-                            "&:hover": {
-                                color: dark,
-                                cursor: "pointer",
-                            },
-                            color: palette.background.alt,
-                            backgroundColor: palette.primary.main,
-                            padding: "1rem",
-                            borderRadius: "1rem"
-                        }}
-                    >
-                        Get Started
-                    </Button>
+                    {isHomePage && (
+                        <Button
+                            variant="outlined"
+                            onClick={handleButtonClick}
+                            sx={{
+                                borderColor: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', // Border color for the outlined button
+                                color: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD',
+                                fontWeight: 800,
+                                fontSize: "16px",
+                                padding: "1rem",
+                                borderRadius: "1rem",
+                                '&:hover': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'whitesmoke' : '#6896CD', 
+                                    borderColor: "#2460C8", // Border color on hover
+                                    color: theme.palette.background.default, // Text color on hover
+                                },
+                            }}
+                        >
+                            Get Started
+                        </Button>
+                    )}
                 </FlexBetween>
             ) : (
                 <IconButton
@@ -139,15 +138,20 @@ const Navbar = () => {
                         </IconButton>
 
                         <Button
+                            variant="outlined"
+                            onClick={handleButtonClick}
                             sx={{
-                                "&:hover": {
-                                    color: dark,
-                                    cursor: "pointer",
-                                },
-                                color: palette.background.alt,
-                                backgroundColor: palette.primary.main,
+                                borderColor: "#2460C8", // Border color for the outlined button
+                                color: "#2460C8",
+                                fontWeight: 800,
+                                fontSize: "16px",
                                 padding: "1rem",
-                                borderRadius: "1rem"
+                                borderRadius: "1rem",
+                                '&:hover': {
+                                    backgroundColor: "#2460C8", // Background color on hover
+                                    borderColor: "#2460C8", // Border color on hover
+                                    color: theme.palette.background.default, // Text color on hover
+                                },
                             }}
                         >
                             Get Started
