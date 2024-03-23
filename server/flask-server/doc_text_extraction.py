@@ -1,22 +1,15 @@
 import io
 import docx
-import fitz  
+ 
+from PyPDF2 import PdfReader
 
 def extract_text_from_pdf(file):
-    # Read the PDF file
-    pdf_data = file.read()
-    
-    # Create a PDF document object
-    pdf_document = fitz.open(io.BytesIO(pdf_data))
-    
-    # Initialize an empty string to store the extracted text
+    pdf_reader = PdfReader(file)
     text = ''
-    
-    # Iterate through each page in the PDF
-    for page in pdf_document:
-        text += page.get_text()
-    
-    return text
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+    text = text.replace('\n', ' ')
+    return text.strip()
 
 def extract_text_from_doc(file):
     # Load the DOC file using python-docx
