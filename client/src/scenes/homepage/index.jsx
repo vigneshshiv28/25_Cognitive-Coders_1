@@ -27,7 +27,7 @@ const HomePage = () => {
             </Box>
 
             <Typography variant='h3' fontWeight='300' textAlign="center" fontFamily="calibri">
-               Team Members
+                Team Members
             </Typography>
 
 
@@ -116,16 +116,17 @@ const HomePage = () => {
             {!isNonMobileScreens && (
                 <Box
                     width="60%"
-                    display={isNonMobileScreens ? "flex" : "block"}
-                    gap="2rem"
+                    display="block"
+                    gap="3rem"
                     marginTop={isNonMobileScreens ? "1rem" : "2rem"}
                     alignContent="center"
                     justifyContent="center"
+                    sx={{ margin: 'auto' }} // Center the box horizontally and vertically
                 >
                     <Box
+                        
                         flexBasis={isNonMobileScreens ? "25%" : "20%"}
-                        marginLeft={isNonMobileScreens ? "rem" : "2rem"}
-                        marginTop="1rem"
+                        marginTop="2rem"
                         sx={{
                             background: 'linear-gradient(45deg, #00FFFF, #00FF7F)',
                             height: '200px',
@@ -135,16 +136,15 @@ const HomePage = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Typography variant='h2' fontWeight='500' textAlign="center"
-                            color="black">
+                        <Typography variant='h2' fontWeight='500' textAlign="center" color="black">
                             Vignesh Shivhare
                         </Typography>
                     </Box>
 
                     <Box
-                        flexBasis={isNonMobileScreens ? "25%" : "50%"}
-                        marginLeft={isNonMobileScreens ? "3rem" : "2rem"}
-                        marginTop="1rem"
+                        
+                        flexBasis={isNonMobileScreens ? "25%" : "20%"}
+                        marginTop="2rem"
                         sx={{
                             background: 'linear-gradient(45deg, #00FFFF, #00FF7F)',
                             height: '200px',
@@ -154,16 +154,15 @@ const HomePage = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Typography variant='h2' fontWeight='500' textAlign="center"
-                            color="black">
-                            Manas Deshpande
+                        <Typography variant='h2' fontWeight='500' textAlign="center" color="black">
+                        Manas Deshpande
                         </Typography>
                     </Box>
 
                     <Box
-                        flexBasis={isNonMobileScreens ? "25%" : "50%"}
-                        marginLeft={isNonMobileScreens ? "3rem" : "2rem"}
-                        marginTop="1rem"
+                        
+                        flexBasis={isNonMobileScreens ? "25%" : "20%"}
+                        marginTop="2rem"
                         sx={{
                             background: 'linear-gradient(45deg, #00FFFF, #00FF7F)',
                             height: '200px',
@@ -173,16 +172,15 @@ const HomePage = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Typography variant='h2' fontWeight='500' textAlign="center"
-                            color="black">
-                            Nihaal Nayak
+                        <Typography variant='h2' fontWeight='500' textAlign="center" color="black">
+                        Nihaal Nayak
                         </Typography>
                     </Box>
 
                     <Box
-                        flexBasis={isNonMobileScreens ? "25%" : "50%"}
-                        marginLeft={isNonMobileScreens ? "3rem" : "2rem"}
-                        marginTop="1rem"
+                        
+                        flexBasis={isNonMobileScreens ? "25%" : "20%"}
+                        marginTop="2rem"
                         sx={{
                             background: 'linear-gradient(45deg, #00FFFF, #00FF7F)',
                             height: '200px',
@@ -192,9 +190,8 @@ const HomePage = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Typography variant='h2' fontWeight='500' textAlign="center"
-                            color="black">
-                            Vedant Kalwar
+                        <Typography variant='h2' fontWeight='500' textAlign="center" color="black">
+                        Vedant Kalwar
                         </Typography>
                     </Box>
                 </Box>
