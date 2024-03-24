@@ -20,7 +20,7 @@ const IntroWidget = () => {
 
     return (
         <WidgetWrapper >
-            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} margin="3rem"  color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
+            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"}   color={theme.palette.mode === 'dark' ? '#FFFFFF' : '#3E3938'}>
                 CHECK THE
             </Typography>
 
@@ -28,11 +28,11 @@ const IntroWidget = () => {
                 AUTHENTICITY OF
             </Typography>
 
-            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"} margin="2rem" color="#D62B28">
+            <Typography variant={isNonMobileScreens ? 'h1' : 'h2'} fontFamily="Kanit" fontWeight='700' fontSize={isNonMobileScreens ? "80px" : "65px"} textAlign={isNonMobileScreens ? "left" : "center"}color="#D62B28">
                 AI GENERATED
             </Typography>
 
-            <Typography variant='h2' fontWeight='700' color={theme.palette.mode === 'dark' ? 'linear-gradient(45deg, blue, blueviolet, violet)' : 'blue'} fontSize="60px" fontFamily="Kanit" textAlign={isNonMobileScreens ? "left" : "center"} margin="2rem"
+            <Typography variant='h2' fontWeight='700' color={theme.palette.mode === 'dark' ? 'lime' : 'blue'} fontSize="60px" fontFamily="Kanit" textAlign={isNonMobileScreens ? "left" : "center"} marginTop="2rem"
                 marginRight="9rem">
                 <Typewriter
                     options={{

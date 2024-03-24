@@ -4,6 +4,7 @@ import IntroWidget from '../../widgets/Intro';
 import Lottie from 'lottie-react';
 import myAnimation from '../../animations/robot.json';
 
+
 const HomePage = () => {
     const isNonMobileScreens = useMediaQuery("(min-width: 1200px)");
 

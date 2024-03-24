@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../state/index";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
+import myAnim2 from '../../animations/robot2.json';
 
 const Navbar = ({ isHomePage = true }) => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);

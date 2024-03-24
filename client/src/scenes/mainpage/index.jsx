@@ -117,7 +117,7 @@ const MainPage = ({ picturePath }) => {
                 height="100vh"
                 marginTop="10rem"
             >
-                <WidgetWrapper2 width={isNonMobileScreens ? "50%" : "75%"}>
+                <WidgetWrapper2 width={isNonMobileScreens ? "50%" : "75%"} border="1px solid black">
                     <Typography variant='h1' fontSize="60px" fontWeight='600' textAlign="center" margin="3rem">
                         Welcome to our AI Authenticity Checker
                     </Typography>
@@ -136,7 +136,7 @@ const MainPage = ({ picturePath }) => {
                             <TextField
                                 multiline
                                 size='string'
-                                rows={15}
+                                rows={10}
                                 placeholder="Write your text here..."
                                 onChange={handlePostChange}
                                 value={post}
@@ -263,12 +263,12 @@ const MainPage = ({ picturePath }) => {
                         paddingBottom="5rem"
                     >
 
-                        <WidgetWrapper2 width={isNonMobileScreens ? "70%" : "75%"} >
+                        <WidgetWrapper2 width={isNonMobileScreens ? "70%" : "75%"} border="0.1px solid black" >
                             <Box paddingLeft="4rem"
                                 paddingBottom="4rem" paddingRight="4rem">
                                 {extractedData && (
                                     <Box>
-                                        <Typography variant="h2" color="darkgreen" textAlign="center" marginTop="1rem">
+                                        <Typography variant="h2" color={theme.palette.mode === 'dark' ? 'lightgreen' : 'darkgreen'} textAlign="center" marginTop="1rem">
                                             Extracted Data
                                         </Typography>
 
@@ -299,7 +299,7 @@ const MainPage = ({ picturePath }) => {
                                                             <Typography variant="h3" color="blue" textAlign="center" marginTop="2rem" sx={{ textDecoration: 'underline' }}>
                                                                 Conclusion made:
                                                             </Typography>
-                                                            <Typography marginTop="2rem" variant='h3' color="lightgreen">
+                                                            <Typography marginTop="2rem" variant='h3' color={theme.palette.mode === 'dark' ? '#D2DDEC' : '#586A83'}>
                                                                 {`${extractedData[key]}`}
                                                             </Typography>
 
