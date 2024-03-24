@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import HomePage from './scenes/homepage';
+import MainPage from './scenes/mainpage';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -20,6 +21,9 @@ function App() {
             <Route
               path='/'
               element={<HomePage />} />
+            <Route
+              path='/home'
+              element={<MainPage />} />
             {/* <Route
               path='/home'
               element={isAuth ? <HomePage /> : <Navigate to="/" />} />
