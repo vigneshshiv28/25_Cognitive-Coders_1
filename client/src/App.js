@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './theme';
-import DisplayData from './scenes/result';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -25,10 +24,6 @@ function App() {
             <Route
               path='/home'
               element={<MainPage />} />
-              <Route
-              path='/result'
-              element={<DisplayData />} />
-            
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

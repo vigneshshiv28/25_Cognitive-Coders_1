@@ -307,7 +307,7 @@ const MainPage = ({ picturePath }) => {
                                             ))} */}
                                             <Typography variant="h4" marginTop="3rem" textAlign="center">
                                                 <span style={{ color: 'orange' }}>Status  :   </span>&nbsp;&nbsp;
-                                                <span>{extractedData["label"]}</span>
+                                                <span>{extractedData["label"] == "Fake" ? "AI Generated" : "Human Generated"}</span>
                                             </Typography>
                                             <Typography variant="h4" marginTop="3rem" textAlign="center">
                                                 <span style={{ color: 'orange' }}>Percentage  : </span>&nbsp;&nbsp;
