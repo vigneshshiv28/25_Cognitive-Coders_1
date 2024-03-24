@@ -23,6 +23,7 @@ import WidgetWrapper2 from '../../components/WidgetWrapper2';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Navbar from '../navbar';
+import { useNavigate } from "react-router-dom";
 
 const MainPage = ({ picturePath }) => {
     const dispatch = useDispatch();
@@ -33,19 +34,17 @@ const MainPage = ({ picturePath }) => {
     const [image, setImage] = useState(null);
     const [post, setPost] = useState("");
     const { palette } = useTheme();
-    
+    const navigate = useNavigate();
+    const [submitted, isSubmitted] = useState(false);
     const isNonMobileScreens = useMediaQuery("(min-width: 1200px)")
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
-    const maxCharCount = 250;
     const theme = useTheme();
     const dark = theme.palette.neutral.dark;
 
     const handlePostChange = (e) => {
         const inputValue = e.target.value;
-        if (inputValue.length <= maxCharCount) {
-            setPost(inputValue);
-        }
+        setPost(inputValue);
     };
 
     const switchhtext = () => {
@@ -75,29 +74,35 @@ const MainPage = ({ picturePath }) => {
         if (image) {
             formData.append('file', image);
         }
-          if (post) {
+        if (post) {
             formData.append('text', post);
         }
 
-       try {
-          const response = await fetch('http://127.0.0.1:5000/submit-data', {
-          method: 'POST',
-          body: formData
-        });
+        try {
+            const response = await fetch('http://127.0.0.1:5000/submit-data', {
+                method: 'POST',
+                body: formData
+            });
 
-        const data = await response.json();
-        console.log(data)
-        if (response.ok) {
-          setExtractedData(data.extracted_text);
-          setError('');
-        } else {
-          setExtractedData('');
-          setError(data.error || 'Failed to extract text');
+            const data = await response.json();
+            console.log(data); // Check the data structure in the console
+
+            if (response.ok) {
+                if (data.results) {
+                    setExtractedData(data.results);
+                } else if (data.extracted_text) {
+                    setExtractedData(data.extracted_text);
+                }
+                setError('');
+            } else {
+                setExtractedData('');
+                setError(data.error || 'Failed to extract text');
+            }
+            isSubmitted(true);
+        } catch (error) {
+            console.error('Error:', error);
+            setError('An error occurred. Please try again.');
         }
-      } catch (error) {
-        console.error('Error:', error);
-        setError('An error occurred. Please try again.');
-      }
         setImage(null);
         setPost("");
     };
@@ -110,15 +115,15 @@ const MainPage = ({ picturePath }) => {
                 justifyContent="center"
                 alignItems="center"
                 height="100vh"
-                marginTop="6rem"
+                marginTop="10rem"
             >
                 <WidgetWrapper2 width={isNonMobileScreens ? "50%" : "75%"}>
-                    <Typography variant='h1'fontSize="60px"  fontWeight='600' textAlign="center" margin="3rem">
+                    <Typography variant='h1' fontSize="60px" fontWeight='600' textAlign="center" margin="3rem">
                         Welcome to our AI Authenticity Checker
                     </Typography>
 
-                    <Typography variant='h1'fontSize="35px"  fontWeight='100' textAlign="center" margin="3rem" color={theme.palette.mode === 'dark' ? '#F2F2D5' : 'grey'}>
-                    "Ensuring trust in digital content"
+                    <Typography variant='h1' fontSize="35px" fontWeight='100' textAlign="center" margin="3rem" color={theme.palette.mode === 'dark' ? '#F2F2D5' : 'grey'}>
+                        "Ensuring trust in digital content"
                     </Typography>
 
                     <Typography variant='h2' color="orange" fontWeight='100' textAlign="center" marginTop="6rem">
@@ -131,10 +136,9 @@ const MainPage = ({ picturePath }) => {
                             <TextField
                                 multiline
                                 size='string'
-                                rows={8}
+                                rows={15}
                                 placeholder="Write your text here..."
                                 onChange={handlePostChange}
-                                inputProps={{ maxLength: maxCharCount }}
                                 value={post}
                                 variant='outlined'
                                 sx={{
@@ -142,15 +146,6 @@ const MainPage = ({ picturePath }) => {
                                     fontSize: "50px",
                                     borderRadius: "5rem",
                                     padding: "1rem 1rem"
-                                }}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end" sx={{ position: 'absolute', right: '20px', bottom: '20px' }}>
-                                            <Typography variant="body2" >
-                                                {post.length}/{maxCharCount}
-                                            </Typography>
-                                        </InputAdornment>
-                                    )
                                 }}
                             />
                         </FlexBetween>
@@ -239,7 +234,7 @@ const MainPage = ({ picturePath }) => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Button 
+                        <Button
                             onClick={handlePost}
                             disabled={!post && !image}
                             sx={{
@@ -256,7 +251,84 @@ const MainPage = ({ picturePath }) => {
                         </Button>
                     </FlexBetween>
                 </WidgetWrapper2>
+
+                {submitted && (
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="40vh"
+                        width="80vh"
+                        paddingLeft="4rem"
+                        paddingBottom="5rem"
+                    >
+
+                        <WidgetWrapper2 width={isNonMobileScreens ? "70%" : "75%"} >
+                            <Box paddingLeft="4rem"
+                                paddingBottom="4rem" paddingRight="4rem">
+                                {extractedData && (
+                                    <Box>
+                                        <Typography variant="h2" color="darkgreen" textAlign="center" marginTop="1rem">
+                                            Extracted Data
+                                        </Typography>
+
+                                        <Typography variant="h3" color="blue" textAlign="center" marginTop="2rem" sx={{ textDecoration: 'underline' }}>
+                                            Evaluation Metrics
+                                        </Typography>
+
+                                        <Box>
+                                            {Object.keys(extractedData).map((key) => (
+                                                <Typography key={key} variant="h4" marginTop="3rem" textAlign="center">
+                                                    {key === "0" && (
+                                                        <>
+                                                            <span style={{ color: 'orange' }}>Burstiness:   </span>&nbsp;&nbsp;
+                                                            <span>{extractedData[key]["Burstiness"]}</span>
+                                                            <br /><br />
+                                                            <span style={{ color: 'orange' }}>Perplexity:   </span>&nbsp;&nbsp;
+                                                            <span>{extractedData[key]["Perplexity"]}</span>
+                                                            <br /><br />
+                                                            <span style={{ color: 'orange' }}>Perplexity per line:   </span>&nbsp;&nbsp;
+                                                            <span>{parseFloat(extractedData[key]["Perplexity per line"]).toFixed(2)}</span>
+                                                            <br /><br />
+
+
+                                                        </>
+                                                    )}
+                                                    {key === "1" && (
+                                                        <>
+                                                            <Typography variant="h3" color="blue" textAlign="center" marginTop="2rem" sx={{ textDecoration: 'underline' }}>
+                                                                Conclusion made:
+                                                            </Typography>
+                                                            <Typography marginTop="2rem" variant='h3' color="lightgreen">
+                                                                {`${extractedData[key]}`}
+                                                            </Typography>
+
+                                                        </>
+                                                    )}
+                                                </Typography>
+                                            ))}
+                                        </Box>
+
+                                    </Box>
+                                )}
+                                {error && (
+                                    <Box>
+                                        <Typography variant="h3" color="red" textAlign="center" marginTop="3rem">
+                                            Error
+                                        </Typography>
+                                        <Typography variant="body1" textAlign="center" color="red">
+                                            {error}
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </Box>
+                        </WidgetWrapper2>
+                    </Box>
+                )}
+
             </Box>
+
+
         </Box>
 
     )
