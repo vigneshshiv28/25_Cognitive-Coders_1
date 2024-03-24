@@ -88,10 +88,8 @@ const MainPage = ({ picturePath }) => {
             console.log(data); // Check the data structure in the console
 
             if (response.ok) {
-                if (data.results) {
-                    setExtractedData(data.results);
-                } else if (data.extracted_text) {
-                    setExtractedData(data.extracted_text);
+                if (data[0]) {
+                    setExtractedData(data[0]);
                 }
                 setError('');
             } else {
@@ -277,7 +275,7 @@ const MainPage = ({ picturePath }) => {
                                         </Typography>
 
                                         <Box>
-                                            {Object.keys(extractedData).map((key) => (
+                                            {/* {Object.keys(extractedData).map((key) => (
                                                 <Typography key={key} variant="h4" marginTop="3rem" textAlign="center">
                                                     {key === "0" && (
                                                         <>
@@ -306,7 +304,16 @@ const MainPage = ({ picturePath }) => {
                                                         </>
                                                     )}
                                                 </Typography>
-                                            ))}
+                                            ))} */}
+                                            <Typography variant="h4" marginTop="3rem" textAlign="center">
+                                                <span style={{ color: 'orange' }}>Status  :   </span>&nbsp;&nbsp;
+                                                <span>{extractedData["label"]}</span>
+                                            </Typography>
+                                            <Typography variant="h4" marginTop="3rem" textAlign="center">
+                                                <span style={{ color: 'orange' }}>Percentage  : </span>&nbsp;&nbsp;
+                                                <span>{(extractedData["score"] * 100).toFixed(3)}%</span>
+                                            </Typography>
+
                                         </Box>
 
                                     </Box>
