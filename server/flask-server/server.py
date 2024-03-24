@@ -3,7 +3,11 @@ from werkzeug.utils import secure_filename
 from image_extraction import image_text_extraction
 from doc_text_extraction import extract_text_from_doc,extract_text_from_pdf
 from flask_cors import CORS
+from RunOnce.perplexitymodel import GPT2PPL
+model = GPT2PPL(device="cpu")
+
 app = Flask(__name__)
+
 CORS(app)
 @app.route('/',methods=['GET'])
 def home():
@@ -29,8 +33,12 @@ def submit_data():
             extracted_text = extract_text_from_pdf(file)
         elif filename.endswith(('.doc', '.docx')):
             extracted_text = extract_text_from_doc(file)
+            results = model(extracted_text)
+            return jsonify({'results':results})
         elif filename.endswith(('.jpg', '.jpeg', '.png', '.gif')):
             extracted_text = image_text_extraction(file)
+            results = model(extracted_text)
+            return jsonify({'results':results})
         else:
             return jsonify({'error': 'Unsupported file type'})
         
@@ -40,7 +48,8 @@ def submit_data():
         # Text box input case
         text = request.form['text']
         extracted_text = text
-        return jsonify({'extracted_text': extracted_text})
+        results = model(extracted_text)
+        return jsonify({'results':results})
 
     else:
         return jsonify({'error': 'No input provided'})
