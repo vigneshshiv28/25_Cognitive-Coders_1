@@ -1,6 +1,6 @@
 import io
 import docx
- 
+from flask_cors import CORS
 from PyPDF2 import PdfReader
 
 def extract_text_from_pdf(file):

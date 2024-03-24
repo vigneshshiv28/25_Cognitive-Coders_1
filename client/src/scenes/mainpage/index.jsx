@@ -26,13 +26,14 @@ import Navbar from '../navbar';
 
 const MainPage = ({ picturePath }) => {
     const dispatch = useDispatch();
+    const [extractedData, setExtractedData] = useState('');
+    const [error, setError] = useState('');
     const [isFile, setIsFile] = useState(false);
     const [isText, setIsText] = useState(true);
     const [image, setImage] = useState(null);
     const [post, setPost] = useState("");
     const { palette } = useTheme();
-    const { _id } = useSelector((state) => state.user);
-    const token = useSelector((state) => state.token);
+    
     const isNonMobileScreens = useMediaQuery("(min-width: 1200px)")
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
@@ -70,21 +71,33 @@ const MainPage = ({ picturePath }) => {
 
     const handlePost = async () => {
         const formData = new FormData();
-        formData.append("userId", _id);
-        formData.append("description", post);
 
         if (image) {
-            formData.append("picture", image);
-            formData.append("picturePath", image.name);
+            formData.append('file', image);
+        }
+          if (post) {
+            formData.append('text', post);
         }
 
-        const response = await fetch(`http://localhost:3001/posts`, {
-            method: "POST",
-            headers: { Authorization: `Bearer ${token}` },
-            body: formData
+       try {
+          const response = await fetch('http://127.0.0.1:5000/submit-data', {
+          method: 'POST',
+          body: formData
         });
 
-        const posts = await response.json();
+        const data = await response.json();
+        console.log(data)
+        if (response.ok) {
+          setExtractedData(data.extracted_text);
+          setError('');
+        } else {
+          setExtractedData('');
+          setError(data.error || 'Failed to extract text');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setError('An error occurred. Please try again.');
+      }
         setImage(null);
         setPost("");
     };
@@ -226,7 +239,8 @@ const MainPage = ({ picturePath }) => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Button
+                        <Button 
+                            onClick={handlePost}
                             disabled={!post && !image}
                             sx={{
                                 color: palette.background.alt,
@@ -241,11 +255,6 @@ const MainPage = ({ picturePath }) => {
                             SUBMIT
                         </Button>
                     </FlexBetween>
-
-
-
-
-
                 </WidgetWrapper2>
             </Box>
         </Box>

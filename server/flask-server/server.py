@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 from image_extraction import image_text_extraction
 from doc_text_extraction import extract_text_from_doc,extract_text_from_pdf
-
+from flask_cors import CORS
 app = Flask(__name__)
-
+CORS(app)
 @app.route('/',methods=['GET'])
 def home():
     return 'Welcome to  server!'
